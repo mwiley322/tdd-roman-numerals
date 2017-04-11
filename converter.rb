@@ -1,23 +1,25 @@
 # Roman Numeral Converter
 # Converts integers to roman numeral strings
-puts "HI"
+require 'numbers_in_words'
+
+
 class Converter
-  def convert(num)
-    if /^\d+$/ =~ num.to_s
-      case num
+  def convert(input)
+    if /^\d+$/ =~ input.to_s
+      case input
         when 1..3
-          ("I" * num)
+          ("I" * input)
         when 4
           "IV"
         when 5..8
-          "V" + ("I"*(num-5))
+          "V" + ("I"*(input-5))
         when 9..10
-          ("I"*(10-num)) + "X"
-        end
-    # elsif /[a-zA-Z]/ ~= num
-    #   puts 'String has letters'
-    # else
-    #   puts "String has no numbers or letters and cannot be evaluated."
+          ("I"*(10-input)) + "X"
+      end
+    elsif input.match(/^[[:alpha:][:blank:]]+$/)
+      NumbersInWords.in_numbers(input.downcase)
+    else
+      "String cannot be evaluated - check input type or spelling."
     end
   end
 end
