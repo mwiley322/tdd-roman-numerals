@@ -7,6 +7,8 @@ class Converter
   def convert(input)
     if /^\d+$/ =~ input.to_s
       case input
+        when 0
+          input
         when 1..3
           ("I" * input)
         when 4
@@ -17,7 +19,13 @@ class Converter
           ("I"*(10-input)) + "X"
       end
     elsif input.match(/^[[:alpha:][:blank:]]+$/)
-      NumbersInWords.in_numbers(input.downcase)
+      if NumbersInWords.in_numbers(input.downcase) == 0 && input!=0
+        "String cannot be evaluated - check input type or spelling."
+      else
+        NumbersInWords.in_numbers(input.downcase)
+      end
+    elsif /\W/ === input
+      "Please do not include special characters."
     else
       "String cannot be evaluated - check input type or spelling."
     end

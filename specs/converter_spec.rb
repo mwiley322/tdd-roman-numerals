@@ -64,10 +64,12 @@ RSpec.describe Converter do
 
   describe "#convertNumToWords" do
     it "returns any number with a string input of a number" do
+      expect( converter.convert(0) ).to eq 0
       expect( converter.convert('one') ).to eq 1
       expect( converter.convert('one hundred eighty FOUR') ).to eq 184
       expect( converter.convert('three thousand two hundred eighty five') ).to eq 3285
-      expect( converter.convert('thre igh ,') ).to eq "String cannot be evaluated - check input type or spelling."
+      expect( converter.convert('forti') ).to eq "String cannot be evaluated - check input type or spelling."
+      expect( converter.convert(',') ).to eq "Please do not include special characters."
       expect( converter.convert('') ).to eq "String cannot be evaluated - check input type or spelling."
     end
   end
